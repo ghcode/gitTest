@@ -16,10 +16,10 @@
 >	git log
 >		-1[2|3|....]
 >		--pretty=option,option可取的值
->          short
->          oneline
->        --abbrev-commit
->        since..until  提交范围
+>     short
+>     oneline
+>   --abbrev-commit
+>   since..until  提交范围
 >		
 >			
 >		
@@ -50,7 +50,14 @@
 >		commit  工作目录和指定提交间的不同
 >		--cached commit  索引(暂存区)和指定提交间的不同
 >		commit1 commit2  两个指定提交间的不同
->		
+>	
+>	git branch 
+>		-D commitId | branchName  删除分支
+>		-a 显示本地所有分支的信息
+>	
+>	git commit
+>		--amend 对最近的提交的commitMSG进行修改
+>	git rebase
 >	
 >*/
 >```
