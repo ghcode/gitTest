@@ -110,6 +110,8 @@
 >
 >M - 以内存占用率大小的顺序排列进程列表
 >
+>k-结束某个进程
+>
 >
 
 #### 命令选项
@@ -121,10 +123,26 @@
 >-u 指定登录账户名活UID,仅匹配有效的用户id
 >
 >-U 真实/有效/保存/文件系统用户名
+>
+>-H  线程模式
+>
+>-c 
 
 
 
+## sort [参考1](https://segmentfault.com/a/1190000019419326)
 
+>-b  会忽略每一行前面的所有空白部分，从第一个可见字符开始比较
+>
+>-f   会将小写字母都转换为大写字母来进行比较，亦即忽略大小写。
+>
+>-n  依照数值的大小排序
+>
+>-r    以相反的顺序来排序
+>
+>-t<分隔字符>   指定排序时所用的栏位分隔字符
+>
+>-k 选择以哪个区间进行排序
 
 
 
@@ -145,6 +163,43 @@
 
 
 >## ps
+>
+>1. ps -p {PID-HERE} -o etime|etimes  查看指定进程已运行的时间
+>2. -a
+>3. -A
+>4. a
+>5. -e
+>6. e
+>7. x  显示没有控制终端的进程
+>8. -u 查看特定用户(EUID)进程
+>9. -U 查看特定用户(RUID)进程
+>10. u
+>11. --sort  
+>    1. -|+pcpu  按照cpu使用情况降序|升序排列
+>    2. -|+pmem  按照内存使用情况降序|升序排列
+>12. -C  使用进程名过滤
+>13. -L 根据线程ID过滤
+>14. -f 全格式
+>15. -j
+>16. -o 控制输出内容
+>    1. 
+>
+>```bash
+>#real user ID (ruid): 实际用户ID,指的是进程执行者是谁
+>#effective user ID (euid): 有效用户ID,指进程执行时对文件的访问权限
+>#saved set-user-ID (saved uid): 保存设置用户ID。是进程刚开始执行时，euid的副本。在执行exec调用之后能重新恢复原来的effectiv user ID.
+>#上面这三个ID是相对于进程而言的.
+>
+>#p表示命名管道文件 
+>#d表示目录文件 
+>#l表示符号连接文件 
+>#-表示普通文件 
+>#s表示socket文件 
+>#c表示字符设备文件 
+>#b表示块设备文件
+>```
+>
+>
 
 
 
@@ -186,8 +241,154 @@
 
 
 
-> 
+> ## du  Disk Usage
+>
+> ls| xargs du -s -h
+>
+> * -a,--all   默认输出目录使用磁盘空间情况，加上此参数将输出目录下的文件的磁盘占用情况
+>
+> * -[b|k|m|h] 
+>
+>   ```
+>   DU(1)                                                             User Commands                                                            DU(1)
+>   
+>   
+>   
+>   NAME
+>          du - estimate file space usage
+>   
+>   SYNOPSIS
+>          du [OPTION]... [FILE]...
+>          du [OPTION]... --files0-from=F
+>   
+>   DESCRIPTION
+>          Summarize disk usage of each FILE, recursively for directories.
+>   
+>          Mandatory arguments to long options are mandatory for short options too.
+>   
+>          -0, --null
+>                 end each output line with NUL, not newline
+>   
+>          -a, --all
+>                 write counts for all files, not just directories
+>   
+>          --apparent-size
+>                 print  apparent  sizes,  rather  than  disk usage; although the apparent size is usually smaller, it may be larger due to holes in
+>                 ('sparse') files, internal fragmentation, indirect blocks, and the like
+>   
+>          -B, --block-size=SIZE
+>                 scale sizes by SIZE before printing them; e.g., '-BM' prints sizes in units of 1,048,576 bytes; see SIZE format below
+>   
+>          -b, --bytes
+>                 equivalent to '--apparent-size --block-size=1'
+>   
+>          -c, --total
+>                 produce a grand total
+>   
+>          -D, --dereference-args
+>                 dereference only symlinks that are listed on the command line
+>   
+>          -d, --max-depth=N
+>                 print the total for a directory (or file, with --all) only  if  it  is  N  or  fewer  levels  below  the  command  line  argument;
+>                 --max-depth=0 is the same as --summarize
+>   
+>          --files0-from=F
+>                 summarize disk usage of the NUL-terminated file names specified in file F; if F is -, then read names from standard input
+>   
+>          -H     equivalent to --dereference-args (-D)
+>   
+>          -h, --human-readable
+>                 print sizes in human readable format (e.g., 1K 234M 2G)
+>   
+>          --inodes
+>                 list inode usage information instead of block usage
+>   
+>          -k     like --block-size=1K
+>   
+>          -L, --dereference
+>                 dereference all symbolic links
+>   
+>          -l, --count-links
+>                 count sizes many times if hard linked
+>   
+>          -m     like --block-size=1M
+>   
+>          -P, --no-dereference
+>                 don't follow any symbolic links (this is the default)
+>   
+>          -S, --separate-dirs
+>                 for directories do not include size of subdirectories
+>   
+>          --si   like -h, but use powers of 1000 not 1024
+>   
+>          -s, --summarize
+>                 display only a total for each argument
+>   
+>          -t, --threshold=SIZE
+>                 exclude entries smaller than SIZE if positive, or entries greater than SIZE if negative
+>   
+>          --time show time of the last modification of any file in the directory, or any of its subdirectories
+>   
+>          --time=WORD
+>                 show time as WORD instead of modification time: atime, access, use, ctime or status
+>   
+>          --time-style=STYLE
+>                 show times using STYLE, which can be: full-iso, long-iso, iso, or +FORMAT; FORMAT is interpreted like in 'date'
+>   
+>          -X, --exclude-from=FILE
+>                 exclude files that match any pattern in FILE
+>   
+>          --exclude=PATTERN
+>                 exclude files that match PATTERN
+>   
+>          -x, --one-file-system
+>                 skip directories on different file systems
+>   
+>          --help display this help and exit
+>   
+>          --version
+>                 output version information and exit
+>   
+>          Display  values  are  in units of the first available SIZE from --block-size, and the DU_BLOCK_SIZE, BLOCK_SIZE and BLOCKSIZE environment
+>          variables.  Otherwise, units default to 1024 bytes (or 512 if POSIXLY_CORRECT is set).
+>   
+>          The SIZE argument is an integer and optional unit (example: 10K is 10*1024).  Units are K,M,G,T,P,E,Z,Y (powers  of  1024)  or  KB,MB,...
+>          (powers of 1000).
+>   
+>          GNU coreutils online help: <http://www.gnu.org/software/coreutils/> Report du translation bugs to <http://translationproject.org/team/>
+>   
+>          Packaged  by  Cygwin  (8.23-4)  Copyright  ©  2014  Free  Software  Foundation,  Inc.   License  GPLv3+:  GNU  GPL  version  3  or  later
+>          <http://gnu.org/licenses/gpl.html>.  This is free software: you are free to change and redistribute it.  There is  NO  WARRANTY,  to  the
+>          extent permitted by law.
+>   
+>   PATTERNS
+>          PATTERN  is a shell pattern (not a regular expression).  The pattern ?  matches any one character, whereas * matches any string (composed
+>          of zero, one or multiple characters).  For example, *.o will match any files whose names end in .o.  Therefore, the command
+>   
+>                 du --exclude='*.o'
+>   
+>          will skip all files and subdirectories ending in .o (including the file .o itself).
+>   
+>   AUTHOR
+>          Written by Torbj"orn Granlund, David MacKenzie, Paul Eggert, and Jim Meyering.
+>   
+>   SEE ALSO
+>          The full documentation for du is maintained as a Texinfo manual.  If the info and du programs are properly installed at  your  site,  the
+>          command
+>   
+>                 info coreutils 'du invocation'
+>   
+>          should give you access to the complete manual.
+>   
+>   
+>   
+>   GNU coreutils 8.23                                                October 2014                                                             DU(1)
+>   
+>   ```
+>
+>   
 
 >
 >
->## grep awk sed cat more tail fg bg jobs vi  nohup  watch  
+>## grep awk sed cat more tail fg bg jobs vi  nohup  watch  du df
+

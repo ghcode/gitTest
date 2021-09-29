@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>last(1) - Linux manual page</title>
+    <link rel="stylesheet" type="text/css" href="../../../style.css" title="style" />
+    <link rel="stylesheet" type="text/css" href="../style.css" title="style" />
+</head>
+
+<body>
+
+<div class="page-top"><a id="top_of_page"></a></div>
+<!--%%%TOP_BAR%%%-->
+    <div class="nav-bar">
+        <table class="nav-table">
+            <tr>
+                <td class="nav-cell">
+                    <p class="nav-text">
+                        <a href="../../../index.html">man7.org</a> &gt; Linux &gt; <a href="../index.html">man-pages</a>
+                    </p>
+                </td>
+                <td class="training-cell">
+                    <p class="training-text"><a class="training-link" href="http://man7.org/training/">Linux/UNIX system programming training</a></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+<hr class="nav-end" />
+
+<!--%%%PAGE_START%%%-->
+    <p class="page-xlinks">
+     Another version of this page is provided by the     <i><a href="last.1@@util-linux.html">util-linux</a></i>      project  
+    </p>
+    <hr class="end-xlinks" />
+
+<h1>last(1) &mdash; Linux manual page</h1>
+
+
+<table class="sec-table">
+<tr>
+    <td>
+        <p class="section-dir">
+<a href="#NAME">NAME</a> | <a href="#SYNOPSIS">SYNOPSIS</a> | <a href="#DESCRIPTION">DESCRIPTION</a> | <a href="#OPTIONS">OPTIONS</a> | <a href="#FILES">FILES</a> | <a href="#AUTHOR">AUTHOR</a> | <a href="#SEE_ALSO">SEE&nbsp;ALSO</a> | <a href="#COLOPHON">COLOPHON</a>
+        </p>
+    </td>
+</tr>
+<tr>
+    <td class="search-box">
+        <div class="man-search-box">
+
+            <form method="get" action="https://www.google.com/search">
+                <fieldset class="man-search">
+                    <input type="text" name="q" size="10" maxlength="255" value="" />
+                    <input type="hidden" name="sitesearch" value="man7.org/linux/man-pages" />
+                    <input type="submit" name="sa" value="Search online pages" />
+                </fieldset>
+            </form>
+
+        </div>
+    </td>
+    <td> </td>
+</tr>
+</table>
+
+<!--%%%TEXT_START%%%-->
+<pre>
+<span class="headline">LAST(1)                  General Commands Manual                 LAST(1)</span>
+</pre>
+<h2><a id="NAME" href="#NAME"></a>NAME  &nbsp; &nbsp; &nbsp; &nbsp; <a href="#top_of_page"><span class="top-link">top</span></a></h2><pre>
+       last - list logins on the system
+</pre>
+<h2><a id="SYNOPSIS" href="#SYNOPSIS"></a>SYNOPSIS  &nbsp; &nbsp; &nbsp; &nbsp; <a href="#top_of_page"><span class="top-link">top</span></a></h2><pre>
+       <b>last   </b>[ <b>-</b><i>num</i> | <b>-n </b><i>num</i> | <b>--lines </b><i>num</i> ]
+              [ <b>-f </b><i>filename</i> | <b>--file </b><i>filename</i> ]
+              [ <i>people ...</i>  ] [ <i>ttys ...</i>  ]
+              [ <b>--complain </b>] [ <b>--no-truncate-ftp-entries </b>]
+              [ <b>-x </b>| <b>--more-records </b>] [ <b>-a </b>| <b>--all-records </b>]
+              [ <b>--tw-leniency </b><i>num</i> ] [ <b>--tw-suspicious </b><i>num</i> ]
+              [ <b>-i </b>| <b>--ip-address </b>] [ <b>--debug </b>] [ <b>-w </b>| <b>--wide </b>]
+              [ <b>-s </b>| <b>--print-seconds </b>] [ <b>-y </b>| <b>--print-year </b>]
+              [ <b>-V </b>| <b>--version </b>] [ <b>-h </b>| <b>--help </b>]
+</pre>
+<h2><a id="DESCRIPTION" href="#DESCRIPTION"></a>DESCRIPTION  &nbsp; &nbsp; &nbsp; &nbsp; <a href="#top_of_page"><span class="top-link">top</span></a></h2><pre>
+       <b>last </b>looks through the file <i>wtmp</i> (which records all
+       logins/logouts) and prints information about connect times of
+       users. Records are printed from most recent to least recent.
+       Records can be specified by tty and username.  tty names can be
+       abbreviated:
+                                    <b>last </b>0
+       is equivalent to
+                                  <b>last </b>tty0.
+
+       Multiple arguments can be specified:
+                               <b>last </b>root console
+       will print all of the entries for the user <i>root</i> and all entries
+       logged in on the <i>console</i> tty.
+
+       The special users <i>reboot</i> and <i>shutdown</i> log in when the system
+       reboots or (surprise) shuts down.
+                                  <b>last </b>reboot
+       will produce a record of reboot times.
+
+       If <b>last </b>is interrupted by a quit signal, it prints out how far
+       its search in the <i>wtmp</i> file had reached and then quits.
+</pre>
+<h2><a id="OPTIONS" href="#OPTIONS"></a>OPTIONS  &nbsp; &nbsp; &nbsp; &nbsp; <a href="#top_of_page"><span class="top-link">top</span></a></h2><pre>
+       <b>-n </b><i>num,</i> <b>--lines </b><i>num</i>
+              Limit the number of lines that <b>last </b>outputs.  This is
+              different from u*x <b>last, </b>which lets you specify the number
+              right after a dash.
+       <b>-f </b><i>filename,</i> <b>--file </b><i>filename</i>
+              Read from the file <i>filename</i> instead of the system's <i>wtmp</i>
+              file.
+       <b>--complain</b>
+              When the <i>wtmp</i> file has a problem (a time-warp, missing
+              record, or whatever), print out an appropriate error.
+       <b>--tw-leniency </b><i>num</i>
+              Set the time warp leniency to <i>num</i> seconds.  Records in
+              <i>wtmp</i> files might be slightly out of order (most notably
+              when two logins occur within a one-second period - the
+              second one gets written first).  By default, this value is
+              set to 60.  If the program notices this problem, time is
+              not assigned to users unless the <b>--timewarps </b>flag is used.
+       <b>--tw-suspicious </b><i>num</i>
+              Set the time warp suspicious value to <i>num</i> seconds.  If two
+              records in the <i>wtmp</i> file are farther than this number of
+              seconds apart, there is a problem with the <i>wtmp</i> file (or
+              your machine hasn't been used in a year).  If the program
+              notices this problem, time is not assigned to users unless
+              the <b>--timewarps </b>flag is used.
+       <b>--no-truncate-ftp-entries</b>
+              When printing out the information, don't chop the number
+              part off of `ftp'XXXX entries.
+       <b>-x, --more-records</b>
+              Print out run level changes, shutdowns, and time changes
+              in addition to the normal records.
+       <b>-a, --all-records</b>
+              Print out all records in the <i>wtmp</i> file.
+       <b>-i, --ip-address</b>
+              Some machines store the IP address of a connection in a
+              utmp record.  Enabling this option makes <b>last </b>print the IP
+              address instead of the hostname.
+       <b>-w, --wide</b>
+              By default, <b>last </b>tries to print each entry within in 80
+              columns.  Use this option to instruct <b>last </b>to print out
+              the fields in the <i>wtmp</i> file with full field widths.
+       <b>--debug</b>
+              Print verbose internal information.
+       <b>-s, --print-seconds</b>
+              Print seconds when displaying dates.
+       <b>-y, --print-year</b>
+              Print year when displaying dates.
+       <b>-V, --version</b>
+              Print <b>last's </b>version number.
+       <b>-h, --help</b>
+              Prints the usage string and default locations of system
+              files to standard output and exits.
+</pre>
+<h2><a id="FILES" href="#FILES"></a>FILES  &nbsp; &nbsp; &nbsp; &nbsp; <a href="#top_of_page"><span class="top-link">top</span></a></h2><pre>
+       <i>wtmp</i>
+              The system wide login record file. See <a href="../man5/wtmp.5.html">wtmp(5)</a> for further
+              details.
+</pre>
+<h2><a id="AUTHOR" href="#AUTHOR"></a>AUTHOR  &nbsp; &nbsp; &nbsp; &nbsp; <a href="#top_of_page"><span class="top-link">top</span></a></h2><pre>
+       The GNU accounting utilities were written by Noel Cragg
+       &lt;noel@gnu.ai.mit.edu&gt;. The man page was added by Dirk
+       Eddelbuettel &lt;edd@qed.econ.queensu.ca&gt;.
+</pre>
+<h2><a id="SEE_ALSO" href="#SEE_ALSO"></a>SEE ALSO  &nbsp; &nbsp; &nbsp; &nbsp; <a href="#top_of_page"><span class="top-link">top</span></a></h2><pre>
+       <a href="../man1/who.1.html">who(1)</a>, <a href="../man5/wtmp.5.html">wtmp(5)</a>
+</pre>
+<h2><a id="COLOPHON" href="#COLOPHON"></a>COLOPHON  &nbsp; &nbsp; &nbsp; &nbsp; <a href="#top_of_page"><span class="top-link">top</span></a></h2><pre>
+       This page is part of the <i>psacct</i> (process accounting utilities)
+       project.  Information about the project can be found at 
+       ⟨<a href="http://www.gnu.org/software/acct/">http://www.gnu.org/software/acct/</a>⟩.  If you have a bug report for
+       this manual page, see ⟨<a href="http://www.gnu.org/software/acct/">http://www.gnu.org/software/acct/</a>⟩.  This
+       page was obtained from the tarball acct-6.6.4.tar.gz fetched from
+       ⟨<a href="http://ftp.gnu.org/gnu/acct/">http://ftp.gnu.org/gnu/acct/</a>⟩ on 2021-08-27.  If you discover
+       any rendering problems in this HTML version of the page, or you
+       believe there is a better or more up-to-date source for the page,
+       or you have corrections or improvements to the information in
+       this COLOPHON (which is <i>not</i> part of the original manual page),
+       send a mail to man-pages@man7.org
+
+<span class="footline">                             1997 August 19                      LAST(1)</span>
+</pre>
+
+<hr class="end-man-text" />
+<p>Pages that refer to this page: 
+    <a href="../man1/lastcomm.1.html">lastcomm(1)</a>,&nbsp; 
+    <a href="../man1/utmpdump.1.html">utmpdump(1)</a>,&nbsp; 
+    <a href="../man5/utmp.5.html">utmp(5)</a>
+</p>
+<hr/>
+
+ 
+<hr class="start-footer" />
+
+<div class="footer"> 
+
+<table class="colophon-table">
+    <tr>
+    <td class="pub-info">
+        <p>
+            HTML rendering created 2021-08-27
+            by <a href="https://man7.org/mtk/index.html">Michael Kerrisk</a>, 
+            author of 
+            <a href="https://man7.org/tlpi/"><em>The Linux Programming Interface</em></a>, 
+            maintainer of the 
+            <a href="https://www.kernel.org/doc/man-pages/">Linux <em>man-pages</em> project</a>.
+        </p>
+        <p>
+            For details of in-depth
+            <strong>Linux/UNIX system programming training courses</strong>
+            that I teach, look <a href="https://man7.org/training/">here</a>.
+        </p>
+        <p>
+            Hosting by <a href="https://www.jambit.com/index_en.html">jambit GmbH</a>.
+        </p>
+    </td>
+    <td class="colophon-divider">
+    </td>
+    <td class="tlpi-cover">
+        <a href="https://man7.org/tlpi/"><img src="https://man7.org/tlpi/cover/TLPI-front-cover-vsmall.png" alt="Cover of TLPI" /></a>
+    </td>
+    </tr>
+</table>
+
+</div>
+
+<hr class="end-footer" />
+
+
+
+<!--BEGIN-SITETRACKING-->
+<!-- SITETRACKING.man7.org_linux_man-pages -->
+
+<!-- Default Statcounter code for man7.org/linux/man-pages
+http://www.man7.org/linux/man-pages -->
+<script type="text/javascript">
+var sc_project=7422636;
+var sc_invisible=1;
+var sc_security="9b6714ff";
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="Web Analytics
+Made Easy - StatCounter" href="https://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="https://c.statcounter.com/7422636/0/9b6714ff/1/"
+alt="Web Analytics Made Easy -
+StatCounter"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+
+
+<!-- Start of Google Analytics Code -->
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9830363-8']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<!-- End of Google Analytics Code -->
+
+<!--END-SITETRACKING-->
+
+</body>
+</html>
